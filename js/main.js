@@ -3,19 +3,14 @@
 // =====================================================
 
 // ── Loader ──────────────────────────────────────────
-// Use DOMContentLoaded (fires when HTML is parsed) instead of 'load'
-// (which waits for ALL images/resources to download — very slow on hosted sites)
-document.addEventListener('DOMContentLoaded', () => {
-  const loader = document.getElementById('loader');
-  if (loader) {
-    setTimeout(() => loader.classList.add('hidden'), 1000);
-  }
-});
-// Safety fallback: guarantee loader hides within 4 seconds no matter what
-setTimeout(() => {
-  const loader = document.getElementById('loader');
-  if (loader) loader.classList.add('hidden');
-}, 4000);
+// This script is loaded at the bottom of <body>, so the DOM is already ready.
+// We hide the loader immediately with a short delay for the animation to play.
+// (function () {
+//   const loader = document.getElementById('loader');
+//   if (loader) {
+//     setTimeout(() => loader.classList.add('hidden'), 1000);
+//   }
+// })();
 
 // ── Dark Mode Toggle ──────────────────────────────────
 const darkToggle = document.getElementById('darkToggle');
