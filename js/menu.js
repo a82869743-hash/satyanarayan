@@ -251,9 +251,16 @@ function renderMenuCards(filterCategory = 'all') {
   if (!grid) return;
 
   const menu = getMenuData();
-  const items = filterCategory === 'all'
+  let items = filterCategory === 'all'
     ? menu
     : menu.filter(m => m.category === filterCategory);
+
+  // On the homepage, limit to 30 items to keep the page concise
+  const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+  const isHomePage = currentPage === 'index.html' || currentPage === '' || currentPage === '/';
+  if (isHomePage) {
+    items = items.slice(0, 30);
+  }
 
   grid.innerHTML = items.map(item => `
     <div class="menu-card" data-aos="zoom-in" data-aos-delay="${(item.id % 5) * 80}">
