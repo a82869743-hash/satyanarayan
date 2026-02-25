@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Menu — Satyanarayan Ice Cream</title>
+  <meta name="description"
+    content="Browse our full menu: Ice Cream Scoops, Sundaes, Thick Shakes, Fresh Juices & Special Combos. Order on WhatsApp!">
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="icon" type="image/svg+xml"
+    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍦</text></svg>">
+  <style>
+    .menu-page-hero {
+      padding: 140px 1.5rem 4rem;
+      background: var(--grad-hero);
+      background-size: 400% 400%;
+      animation: gradientShift 12s ease infinite;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-float {
+      position: absolute;
+      font-size: 4rem;
+      opacity: 0.5;
+      animation: float 5s ease-in-out infinite;
+    }
+
+    .hero-float:nth-child(1) {
+      top: 10%;
+      left: 5%;
+      animation-delay: 0s;
+    }
+
+    .hero-float:nth-child(2) {
+      top: 15%;
+      right: 8%;
+      animation-delay: 1s;
+    }
+
+    .hero-float:nth-child(3) {
+      bottom: 10%;
+      left: 12%;
+      animation-delay: 2s;
+    }
+
+    .hero-float:nth-child(4) {
+      bottom: 15%;
+      right: 5%;
+      animation-delay: 0.5s;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ── Navbar ── -->
+  <nav class="navbar">
+    <a href="index.html" class="nav-logo"><img src="images/logo.jpg" alt="Satyanarayan Ice Cream Logo"
+        class="nav-logo-img">Satyanarayan Ice Cream</a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="menu.html" class="active">Menu</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="admin.html">Admin</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="dark-toggle" id="darkToggle" title="Toggle dark mode"></button>
+      <a href="menu.html" class="nav-order-btn">🍦 View Menu</a>
+    </div>
+    <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+  </nav>
+  <div class="mobile-nav" id="mobileNav">
+    <a href="index.html">🏠 Home</a>
+    <a href="menu.html">🍦 Menu</a>
+    <a href="gallery.html">📸 Gallery</a>
+    <a href="about.html">💫 About</a>
+  </div>
+
+  <!-- ── Hero ── -->
+  <div class="menu-page-hero">
+    <div class="hero-float">🍦</div>
+    <div class="hero-float">🍨</div>
+    <div class="hero-float">🍓</div>
+    <div class="hero-float">🧊</div>
+    <div class="hero-badge" style="animation:fadeInDown 0.8s ease">🍦 Full Menu</div>
+    <h1 class="hero-title" style="animation:fadeInUp 1s ease 0.2s both">
+      Pick Your <span>Perfect Treat</span>
+    </h1>
+    <p class="hero-subtitle" style="animation:fadeInUp 1s ease 0.4s both">28+ handcrafted items across 5 delicious
+      categories</p>
+  </div>
+
+  <!-- ── Menu Section ── -->
+  <section class="section">
+    <div class="menu-container">
+      <div class="menu-tabs" id="menuTabs">
+        <button class="menu-tab active" data-cat="all">🍽️ All Items</button>
+        <button class="menu-tab" data-cat="icecream">🍦 Ice Cream</button>
+        <button class="menu-tab" data-cat="sundae">🍨 Sundae</button>
+        <button class="menu-tab" data-cat="lassi">🥛 Lassi</button>
+        <button class="menu-tab" data-cat="dish">🍽️ Ice Cream Dish</button>
+        <button class="menu-tab" data-cat="speciality">⭐ Speciality</button>
+        <button class="menu-tab" data-cat="vanilla">🍦 Vanilla Topping</button>
+        <button class="menu-tab" data-cat="milkshake">🥤 Milk Shake</button>
+        <button class="menu-tab" data-cat="thickshake">🥤 Thick Shake</button>
+        <button class="menu-tab" data-cat="coldcoffee">☕ Cold Coffee</button>
+      </div>
+
+      <div class="menu-grid" id="menuGrid"></div>
+    </div>
+  </section>
+
+  <!-- ── WhatsApp Float ── -->
+  <a href="https://wa.me/919016996990?text=Hi%2C+I+want+to+order+from+Satyanarayan+Ice+Cream" class="whatsapp-float"
+    target="_blank" title="Order on WhatsApp">💬</a>
+
+  <!-- ── Footer ── -->
+  <footer class="footer">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo"><img src="images/logo.jpg" alt="Satyanarayan Ice Cream Logo" class="footer-logo-img">
+          Satyanarayan Ice Cream
+        </div>
+        <p class="footer-desc">Made with love, served with joy. Premium ice cream & shakes since day one.</p>
+        <div class="footer-social">
+          <a href="https://wa.me/919016996990" target="_blank" class="social-btn">💬</a>
+          <a href="https://instagram.com/shreesatyanarayanicecream78755" target="_blank" class="social-btn">📸</a>
+          <a href="#" class="social-btn">📘</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="menu.html">Menu</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="about.html">About</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Categories</h4>
+        <ul>
+          <li>Ice Cream Scoops</li>
+          <li>Sundaes</li>
+          <li>Thick Shakes</li>
+          <li>Fresh Juices</li>
+          <li>Special Combos</li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Opening Hours</h4>
+        <ul class="footer-hours">
+          <li>Mon–Fri <span>11am–10pm</span></li>
+          <li>Sat–Sun <span>10am–11pm</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 Satyanarayan Ice Cream. Made with ❤️</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/menu.js"></script>
+</body>
+
+</html>

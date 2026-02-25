@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About Us — Satyanarayan Ice Cream</title>
+    <meta name="description"
+        content="Learn the story behind Satyanarayan Ice Cream — a family-owned premium ice cream, shakes and juice center built on fresh ingredients and pure love.">
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍦</text></svg>">
+    <style>
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 1.5rem;
+            max-width: 1000px;
+            margin: 2.5rem auto 0;
+        }
+
+        .value-card {
+            background: var(--card-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-lg);
+            padding: 2rem 1.5rem;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(123, 79, 46, 0.07);
+            transition: var(--trans);
+        }
+
+        .value-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 16px 40px rgba(255, 107, 157, 0.18);
+            border-color: var(--pink);
+        }
+
+        .value-icon {
+            font-size: 2.8rem;
+            margin-bottom: 0.8rem;
+            display: block;
+        }
+
+        .value-title {
+            font-weight: 700;
+            font-size: 1rem;
+            color: var(--text-primary);
+            margin-bottom: 0.4rem;
+        }
+
+        .value-desc {
+            font-size: 0.84rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        .stats-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            justify-content: center;
+            max-width: 900px;
+            margin: 3rem auto 0;
+        }
+
+        .stat-box {
+            text-align: center;
+            flex: 1;
+            min-width: 140px;
+            background: var(--card-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-lg);
+            padding: 1.8rem 1.2rem;
+        }
+
+        .stat-num {
+            font-family: var(--font-head);
+            font-size: 2.4rem;
+            font-weight: 900;
+            background: var(--grad-btn);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-top: 0.3rem;
+        }
+
+        .timeline {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .timeline-item {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 2.5rem;
+            align-items: flex-start;
+        }
+
+        .timeline-dot {
+            min-width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: var(--grad-btn);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            box-shadow: 0 4px 15px rgba(255, 107, 157, 0.35);
+            flex-shrink: 0;
+        }
+
+        .timeline-content {
+            display: flex;
+            flex-direction: column;
+            gap: 0.15rem;
+        }
+
+        .timeline-year {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--pink-deep);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .timeline-title {
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: var(--text-primary);
+            margin: 0.2rem 0;
+        }
+
+        .timeline-text {
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <a href="index.html" class="nav-logo"><img src="images/logo.jpg" alt="Satyanarayan Ice Cream Logo"
+                class="nav-logo-img">Satyanarayan Ice Cream</a>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="menu.html">Menu</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="about.html" class="active">About</a></li>
+        </ul>
+        <div class="nav-actions">
+            <button class="dark-toggle" id="darkToggle"></button>
+            <a href="menu.html" class="nav-order-btn">🍦 View Menu</a>
+        </div>
+        <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+    </nav>
+    <div class="mobile-nav" id="mobileNav">
+        <a href="index.html">🏠 Home</a>
+        <a href="menu.html">🍦 Menu</a>
+        <a href="gallery.html">📸 Gallery</a>
+        <a href="about.html">💫 About</a>
+    </div>
+
+    <!-- Hero -->
+    <div class="page-hero">
+        <div class="hero-badge" style="animation:fadeInDown 0.8s ease">💫 Our Story</div>
+        <h1 class="hero-title" style="animation:fadeInUp 1s ease 0.2s both">
+            Made with Love, <span>Served with Joy</span>
+        </h1>
+        <p class="hero-subtitle" style="animation:fadeInUp 1s ease 0.4s both">
+            A family dream turned into your favorite ice cream destination.
+        </p>
+    </div>
+
+    <!-- Brand Story -->
+    <section class="section">
+        <div class="about-grid">
+            <div class="about-visual" data-aos="fade-right">
+                <img src="images/shop_front_close.jpg" alt="Satyanarayan Ice Cream Storefront"
+                    class="about-shop-photo shop-photo-enhance"
+                    style="width:100%;max-width:420px;border-radius:var(--radius-lg);box-shadow:0 16px 48px rgba(0,0,0,0.15)">
+            </div>
+            <div data-aos="fade-left">
+                <div class="about-tag">The Beginning</div>
+                <h2 class="about-title">A Scoop of Dream, A Sip of Passion</h2>
+                <p class="about-text">
+                    Satyanarayan Ice Cream started as a small, passionate family project rooted in a love for quality
+                    desserts. Our
+                    founder grew up watching street vendors create magical ice creams, and dreamed of creating something
+                    premium — where every customer gets the freshest, most indulgent experience possible.
+                </p>
+                <p class="about-text">
+                    We opened our first counter with just 6 flavors and one soda machine. Word spread fast. Our
+                    commitment to using only real fruits, no artificial colors, and hand-scooping every order set us
+                    apart from day one.
+                </p>
+                <p class="about-text">
+                    Today, Satyanarayan Ice Cream serves hundreds of customers daily with 28+ menu items across 5
+                    categories — and
+                    we're still growing, still experimenting, and still serving every scoop with the same love as the
+                    very first one.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats -->
+    <section class="section section-alt">
+        <div class="section-header" data-aos="fade-up">
+            <div class="section-tag">By the Numbers</div>
+            <h2 class="section-title">Our <span>Happy Story</span></h2>
+            <div class="divider"></div>
+        </div>
+        <div class="stats-row">
+            <div class="stat-box" data-aos="zoom-in" data-aos-delay="0">
+                <div class="stat-num">10K+</div>
+                <div class="stat-label">Happy Customers</div>
+            </div>
+            <div class="stat-box" data-aos="zoom-in" data-aos-delay="100">
+                <div class="stat-num">28+</div>
+                <div class="stat-label">Menu Items</div>
+            </div>
+            <div class="stat-box" data-aos="zoom-in" data-aos-delay="200">
+                <div class="stat-num">5⭐</div>
+                <div class="stat-label">Avg. Customer Rating</div>
+            </div>
+            <div class="stat-box" data-aos="zoom-in" data-aos-delay="300">
+                <div class="stat-num">100%</div>
+                <div class="stat-label">Real Fruit Ingredients</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Values -->
+    <section class="section">
+        <div class="section-header" data-aos="fade-up">
+            <div class="section-tag">Our Promise</div>
+            <h2 class="section-title">What We <span>Stand For</span></h2>
+            <div class="divider"></div>
+        </div>
+        <div class="values-grid">
+            <div class="value-card" data-aos="fade-up" data-aos-delay="0">
+                <span class="value-icon">🌿</span>
+                <div class="value-title">100% Natural</div>
+                <div class="value-desc">No artificial colors, no preservatives. Just pure, fresh, natural goodness in
+                    every item.</div>
+            </div>
+            <div class="value-card" data-aos="fade-up" data-aos-delay="80">
+                <span class="value-icon">🧼</span>
+                <div class="value-title">Hygienic Kitchen</div>
+                <div class="value-desc">FSSAI certified operations. Every surface cleaned, every hand gloved. Your
+                    health is our priority.</div>
+            </div>
+            <div class="value-card" data-aos="fade-up" data-aos-delay="160">
+                <span class="value-icon">❤️</span>
+                <div class="value-title">Made with Love</div>
+                <div class="value-desc">Each order prepared with genuine care. We treat every customer like family.
+                </div>
+            </div>
+            <div class="value-card" data-aos="fade-up" data-aos-delay="240">
+                <span class="value-icon">🚀</span>
+                <div class="value-title">Always Innovating</div>
+                <div class="value-desc">New seasonal flavors, limited edition combos, and surprise specials — we never
+                    stop creating.</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Timeline -->
+    <section class="section section-alt">
+        <div class="section-header" data-aos="fade-up">
+            <div class="section-tag">Journey</div>
+            <h2 class="section-title">How Far We've <span>Come</span></h2>
+            <div class="divider"></div>
+        </div>
+        <div class="timeline" data-aos="fade-up" data-aos-delay="100">
+            <div class="timeline-item">
+                <div class="timeline-dot">🌿</div>
+                <div class="timeline-content">
+                    <div class="timeline-year">Day One</div>
+                    <div class="timeline-title">The First Scoop</div>
+                    <div class="timeline-text">Opened our first counter with 6 ice cream flavors and a borrowed soda
+                        machine. Customers loved it instantly.</div>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-dot">🥤</div>
+                <div class="timeline-content">
+                    <div class="timeline-year">Month 3</div>
+                    <div class="timeline-title">Thick Shakes Launch</div>
+                    <div class="timeline-text">Added thick shakes to the menu. The Oreo Shake became our best seller
+                        within a week.</div>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-dot">🧃</div>
+                <div class="timeline-content">
+                    <div class="timeline-year">Month 6</div>
+                    <div class="timeline-title">Fresh Juices Added</div>
+                    <div class="timeline-text">Invested in a cold-press juicer. Customers now had a full range — scoops
+                        to sips, all under one roof.</div>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-dot">🎉</div>
+                <div class="timeline-content">
+                    <div class="timeline-year">Year 1</div>
+                    <div class="timeline-title">10,000 Customers Served</div>
+                    <div class="timeline-text">A milestone we celebrated with free scoops for a week. Our regulars made
+                        this possible.</div>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-dot">🚀</div>
+                <div class="timeline-content">
+                    <div class="timeline-year">Now</div>
+                    <div class="timeline-title">Premium Online Presence</div>
+                    <div class="timeline-text">Launched our full online menu, Instagram, and WhatsApp ordering —
+                        bringing joy to your doorstep.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="section" style="text-align:center">
+        <div data-aos="zoom-in">
+            <div class="section-tag">Ready to Try?</div>
+            <h2 class="section-title">Come Visit Us or <span>Order Now</span></h2>
+            <p class="section-sub" style="margin-bottom:2rem">Drop by our store or WhatsApp us your order. Fresh
+                happiness guaranteed!</p>
+            <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap">
+                <a href="https://wa.me/919016996990?text=Hi%2C+I+want+to+order+from+Satyanarayan+Ice+Cream"
+                    target="_blank" class="btn btn-wa">💬 Order on WhatsApp</a>
+                <a href="menu.html" class="btn btn-primary">🍦 View Menu</a>
+                <a href="https://instagram.com/shreesatyanarayanicecream78755" target="_blank"
+                    class="btn btn-secondary">📸 Follow
+                    Us</a>
+            </div>
+        </div>
+    </section>
+
+    <a href="https://wa.me/919016996990?text=Hi%2C+I+want+to+order+from+Satyanarayan+Ice+Cream" class="whatsapp-float"
+        target="_blank" title="Order on WhatsApp">💬</a>
+
+    <footer class="footer">
+        <div class="footer-grid">
+            <div>
+                <div class="footer-logo"><img src="images/logo.jpg" alt="Satyanarayan Ice Cream Logo"
+                        class="footer-logo-img">
+                    Satyanarayan Ice Cream</div>
+                <p class="footer-desc">Your favorite destination for premium desserts and fresh juices. Made with love
+                    since day one.</p>
+                <div class="footer-social">
+                    <a href="https://wa.me/919016996990" target="_blank" class="social-btn">💬</a>
+                    <a href="https://instagram.com/shreesatyanarayanicecream78755" target="_blank"
+                        class="social-btn">📸</a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="menu.html">Menu</a></li>
+                    <li><a href="gallery.html">Gallery</a></li>
+                    <li><a href="about.html">About</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Opening Hours</h4>
+                <ul class="footer-hours">
+                    <li>Mon–Fri <span>11am–10pm</span></li>
+                    <li>Sat–Sun <span>10am–11pm</span></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Contact</h4>
+                <ul>
+                    <li>📞 <a href="tel:+919016996990" style="opacity:0.9">+91 90169 96990</a></li>
+                    <li>📍 <a
+                            href="https://www.google.com/maps/dir/?api=1&destination=Opp+Jubilee+Baug+Nr+Jagdish+Farshan+Raopura+Vadodara"
+                            target="_blank" style="opacity:0.9">Opp. Jubilee Baug, Nr Jagdish Farshan, Raopura,
+                            Vadodara</a></li>
+                    <li>📸 @shreesatyanarayanicecream78755</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 Satyanarayan Ice Cream. Made with ❤️</p>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+
+</html>

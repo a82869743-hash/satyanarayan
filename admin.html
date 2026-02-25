@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Panel — Satyanarayan Ice Cream</title>
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚙️</text></svg>">
+    <style>
+        .admin-nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.5rem 2rem;
+            background: var(--nav-bg);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--glass-border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .admin-nav-title {
+            font-family: var(--font-head);
+            font-size: 1.2rem;
+            font-weight: 800;
+        }
+
+        .admin-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 1rem;
+            max-width: 1000px;
+            margin: 0 auto 2rem;
+        }
+
+        .admin-stat {
+            background: var(--card-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius);
+            padding: 1.2rem 1.5rem;
+        }
+
+        .admin-stat-num {
+            font-size: 2rem;
+            font-weight: 800;
+            background: var(--grad-btn);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .admin-stat-label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-top: 0.2rem;
+        }
+
+        .admin-actions {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 1.5rem;
+        }
+
+        .admin-table-wrap {
+            background: var(--card-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(123, 79, 46, 0.08);
+        }
+
+        .admin-error {
+            color: #e53e3e;
+            font-size: 0.85rem;
+            margin-top: 0.5rem;
+            display: none;
+        }
+
+        @media(max-width:768px) {
+            .admin-table {
+                font-size: 0.78rem;
+            }
+
+            .admin-table input[type="number"] {
+                width: 60px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Admin Login -->
+    <div class="admin-login" id="adminLogin">
+        <div class="admin-login-card">
+            <div style="font-size:3.5rem">⚙️</div>
+            <h1
+                style="font-family:var(--font-head);font-size:1.5rem;font-weight:800;margin:0.8rem 0 0.3rem;color:var(--text-primary)">
+                Admin Panel</h1>
+            <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:1.8rem">Satyanarayan Ice Cream — Menu
+                Management</p>
+
+            <form id="adminLoginForm">
+                <div class="form-group">
+                    <label for="adminPassword">Password</label>
+                    <input type="password" id="adminPassword" placeholder="Enter admin password"
+                        autocomplete="current-password" required>
+                </div>
+                <p class="admin-error" id="loginError"></p>
+                <button type="submit" class="btn btn-primary"
+                    style="width:100%;justify-content:center;margin-top:0.5rem">
+                    🔓 Login
+                </button>
+            </form>
+
+
+
+            <div style="margin-top:1.5rem">
+                <button class="dark-toggle" id="darkToggle" style="margin:0 auto;display:block"
+                    title="Toggle dark mode"></button>
+            </div>
+            <div style="margin-top:1rem">
+                <a href="index.html" style="font-size:0.83rem;color:var(--text-muted)">← Back to Website</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Panel -->
+    <div class="admin-panel" id="adminPanel">
+
+        <!-- Sticky nav -->
+        <div class="admin-nav">
+            <span class="admin-nav-title">⚙️ Satyanarayan Ice Cream — Admin Panel</span>
+            <div style="display:flex;gap:0.8rem;align-items:center">
+                <button class="dark-toggle" id="darkTogglePanell" title="Toggle dark mode"></button>
+                <a href="index.html" class="btn btn-secondary" style="padding:0.5rem 1rem;font-size:0.85rem">🏠
+                    Website</a>
+                <button id="adminLogout" class="btn btn-primary" style="padding:0.5rem 1rem;font-size:0.85rem">🔒
+                    Logout</button>
+            </div>
+        </div>
+
+        <div style="padding:2rem 1.5rem">
+
+            <!-- Stats -->
+            <div class="admin-stats">
+                <div class="admin-stat">
+                    <div class="admin-stat-num" id="statItems">28</div>
+                    <div class="admin-stat-label">Menu Items</div>
+                </div>
+                <div class="admin-stat">
+                    <div class="admin-stat-num" id="statCats">5</div>
+                    <div class="admin-stat-label">Categories</div>
+                </div>
+                <div class="admin-stat">
+                    <div class="admin-stat-num" id="statMin">₹60</div>
+                    <div class="admin-stat-label">Lowest Price</div>
+                </div>
+                <div class="admin-stat">
+                    <div class="admin-stat-num" id="statMax">₹699</div>
+                    <div class="admin-stat-label">Highest Price</div>
+                </div>
+            </div>
+
+            <!-- Actions -->
+            <div class="admin-actions">
+                <button class="btn btn-primary" id="adminSaveBtn">💾 Save All Changes</button>
+                <button class="btn btn-secondary" id="adminResetBtn">🔄 Reset to Defaults</button>
+                <a href="menu.html" target="_blank" class="btn btn-mint">👁️ Preview Menu</a>
+            </div>
+
+            <p style="font-size:0.82rem;color:var(--text-muted);margin-bottom:1.5rem">
+                ℹ️ Edit prices and descriptions below. Changes are saved to browser storage and reflected on the menu
+                page instantly.
+            </p>
+
+            <!-- Table -->
+            <div class="admin-table-wrap">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>Item</th>
+                            <th>Category</th>
+                            <th>Description</th>
+                            <th>Price (₹)</th>
+                            <th>Active</th>
+                        </tr>
+                    </thead>
+                    <tbody id="adminTableBody">
+                        <tr>
+                            <td colspan="5" style="padding:2rem;text-align:center;color:var(--text-muted)">Loading menu
+                                data...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Bottom save -->
+            <div style="text-align:center;margin-top:1.5rem">
+                <button class="admin-save-btn" id="adminSaveBtnBottom">💾 Save All Changes</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/menu.js"></script>
+    <script>
+        // Make DEFAULT_MENU accessible globally for admin.js
+        window.DEFAULT_MENU = DEFAULT_MENU;
+        function saveCart() { localStorage.setItem('cart', JSON.stringify(cart)); }
+    </script>
+    <script src="js/main.js"></script>
+    <script src="js/admin.js"></script>
+    <script>
+        // Wire bottom save button
+        document.getElementById('adminSaveBtnBottom').addEventListener('click', saveMenu);
+
+        // Wire panel dark toggle
+        const panelToggle = document.getElementById('darkTogglePanell');
+        if (panelToggle) {
+            panelToggle.addEventListener('click', () => {
+                document.body.classList.toggle('dark');
+                localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
+            });
+        }
+
+        // Update stats after render
+        function updateStats() {
+            const menu = getDefaultMenu();
+            if (!menu.length) return;
+            const prices = menu.map(m => m.price);
+            const el = id => document.getElementById(id);
+            if (el('statItems')) el('statItems').textContent = menu.length;
+            if (el('statMin')) el('statMin').textContent = '₹' + Math.min(...prices);
+            if (el('statMax')) el('statMax').textContent = '₹' + Math.max(...prices);
+        }
+        document.addEventListener('DOMContentLoaded', () => setTimeout(updateStats, 300));
+    </script>
+</body>
+
+</html>
