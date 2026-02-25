@@ -3,12 +3,19 @@
 // =====================================================
 
 // ── Loader ──────────────────────────────────────────
-window.addEventListener('load', () => {
+// Use DOMContentLoaded (fires when HTML is parsed) instead of 'load'
+// (which waits for ALL images/resources to download — very slow on hosted sites)
+document.addEventListener('DOMContentLoaded', () => {
   const loader = document.getElementById('loader');
   if (loader) {
-    setTimeout(() => loader.classList.add('hidden'), 2200);
+    setTimeout(() => loader.classList.add('hidden'), 1000);
   }
 });
+// Safety fallback: guarantee loader hides within 4 seconds no matter what
+setTimeout(() => {
+  const loader = document.getElementById('loader');
+  if (loader) loader.classList.add('hidden');
+}, 4000);
 
 // ── Dark Mode Toggle ──────────────────────────────────
 const darkToggle = document.getElementById('darkToggle');
