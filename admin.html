@@ -200,9 +200,44 @@
                 </table>
             </div>
 
+            <!-- Visual Image Mapper Section -->
+            <div
+                style="margin-top:3rem;background:var(--card-bg);border:1px solid var(--glass-border);border-radius:var(--radius-lg);padding:1.5rem;box-shadow:0 4px 20px rgba(123,79,46,0.08);">
+                <h2 style="font-family:var(--font-head);font-size:1.5rem;color:var(--text-primary);margin-bottom:1rem;">
+                    🖼️ Visual Image Mapper</h2>
+                <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:1.5rem;">Click the assigned image to
+                    change it. Select the correct visual match from the newly sliced HD menu photos. Remember to click
+                    "Save All Changes" below when done.</p>
+
+                <div id="imageMapperGrid" style="display:flex;flex-direction:column;gap:1.5rem;">
+                    <!-- Dynamically populated rows will go here -->
+                </div>
+            </div>
+
+            <!-- Image Selection Modal -->
+            <div id="imageModal"
+                style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.8);backdrop-filter:blur(5px);align-items:center;justify-content:center;padding:2rem;">
+                <div
+                    style="background:var(--card-bg);border-radius:var(--radius-lg);width:100%;max-width:900px;max-height:85vh;display:flex;flex-direction:column;overflow:hidden;">
+                    <div
+                        style="padding:1rem;border-bottom:1px solid var(--glass-border);display:flex;justify-content:space-between;align-items:center;">
+                        <h3 id="modalProductName" style="margin:0;font-family:var(--font-head);">Select Image for
+                            Product</h3>
+                        <button id="closeModalBtn"
+                            style="background:none;border:none;font-size:1.5rem;cursor:pointer;color:var(--text-primary);">✖</button>
+                    </div>
+                    <div id="modalImageGrid"
+                        style="padding:1rem;overflow-y:auto;display:grid;grid-template-columns:repeat(auto-fill, minmax(120px, 1fr));gap:10px;">
+                        <!-- Images will load here -->
+                    </div>
+                </div>
+            </div>
+
             <!-- Bottom save -->
-            <div style="text-align:center;margin-top:1.5rem">
-                <button class="admin-save-btn" id="adminSaveBtnBottom">💾 Save All Changes</button>
+            <div style="text-align:center;margin-top:2.5rem;margin-bottom:2rem;">
+                <button class="btn btn-primary" id="adminSaveBtnBottom"
+                    style="padding:1rem 2.5rem;font-size:1.1rem;box-shadow:0 6px 20px rgba(255,107,157,0.45);">💾 Save
+                    All Changes</button>
             </div>
         </div>
     </div>
@@ -216,8 +251,89 @@
     <script src="js/main.js"></script>
     <script src="js/admin.js"></script>
     <script>
+        // Custom temporary image mapper logic
+        let currentEditingId = null;
+
+        function renderImageMapper() {
+            const mapperGrid = document.getElementById('imageMapperGrid');
+            if (!mapperGrid) return;
+            const menu = getDefaultMenu();
+            mapperGrid.innerHTML = menu.map(item => `
+                <div style="display:flex;align-items:center;gap:1rem;padding:1rem;background:rgba(0,0,0,0.03);border-radius:8px;border:1px solid var(--glass-border);">
+                    <div style="flex:1;">
+                        <div style="font-weight:700;font-size:1.1rem;color:var(--text-primary);">${item.name} <span style="font-size:0.75rem;font-weight:normal;color:var(--text-muted);background:var(--card-bg);padding:2px 6px;border-radius:4px;margin-left:8px">${item.category}</span></div>
+                        <div style="font-size:0.8rem;color:var(--text-muted);font-family:monospace;margin-top:4px;" id="textPath-${item.id}">${item.image}</div>
+                    </div>
+                    <div>
+                        <img id="imgPreview-${item.id}" src="${item.image}" alt="${item.name}" 
+                             style="width:90px;height:90px;object-fit:cover;border-radius:8px;cursor:pointer;border:3px solid transparent;transition:0.2s;box-shadow:0 2px 8px rgba(0,0,0,0.1);"
+                             onmouseover="this.style.borderColor='var(--pink)'" 
+                             onmouseout="this.style.borderColor='transparent'"
+                             onclick="openImageSelector(${item.id}, '${item.name.replace(/'/g, "\\'")}')"
+                             title="Click to select different image">
+                    </div>
+                    <input type="hidden" id="image-${item.id}" value="${item.image}">
+                </div>
+            `).join('');
+        }
+
+        function openImageSelector(itemId, itemName) {
+            currentEditingId = itemId;
+            document.getElementById('modalProductName').textContent = 'Select picture for: ' + itemName;
+            document.getElementById('imageModal').style.display = 'flex';
+
+            // Generate grid of 166 images dynamically
+            const grid = document.getElementById('modalImageGrid');
+            if (grid.innerHTML.trim() === '') {
+                let html = '';
+                for (let i = 1; i <= 166; i++) {
+                    const path = `images/hd_crops/item_${i}.jpg`;
+                    html += `<div style="cursor:pointer;border-radius:8px;overflow:hidden;position:relative;" onclick="selectImage('${path}')">
+                                <img src="${path}" loading="lazy" style="width:100%;height:120px;object-fit:cover;display:block;">
+                                <div style="position:absolute;bottom:0;left:0;right:0;background:rgba(0,0,0,0.6);color:#fff;font-size:0.7rem;padding:2px;text-align:center;">item_${i}.jpg</div>
+                             </div>`;
+                }
+                grid.innerHTML = html;
+            }
+        }
+
+        function selectImage(imgPath) {
+            if (currentEditingId !== null) {
+                document.getElementById(`image-${currentEditingId}`).value = imgPath;
+                document.getElementById(`imgPreview-${currentEditingId}`).src = imgPath;
+                document.getElementById(`textPath-${currentEditingId}`).textContent = imgPath;
+            }
+            closeModal();
+        }
+
+        function closeModal() {
+            document.getElementById('imageModal').style.display = 'none';
+            currentEditingId = null;
+        }
+
+        document.getElementById('closeModalBtn').addEventListener('click', closeModal);
+
+        // Override saveMenu to include image fields
+        const originalSaveMenu = window.saveMenu;
+        window.saveMenu = function () {
+            const menu = getDefaultMenu();
+            const updated = menu.map(item => {
+                const priceEl = document.getElementById(`price-${item.id}`);
+                const descEl = document.getElementById(`desc-${item.id}`);
+                const imgEl = document.getElementById(`image-${item.id}`);
+                return {
+                    ...item,
+                    price: priceEl ? parseInt(priceEl.value) || item.price : item.price,
+                    desc: descEl ? descEl.value : item.desc,
+                    image: imgEl ? imgEl.value : item.image
+                };
+            });
+            localStorage.setItem('scoopSipMenu', JSON.stringify(updated));
+            showToast('✅ Menu + Images saved successfully!');
+        };
+
         // Wire bottom save button
-        document.getElementById('adminSaveBtnBottom').addEventListener('click', saveMenu);
+        document.getElementById('adminSaveBtnBottom').addEventListener('click', window.saveMenu);
 
         // Wire panel dark toggle
         const panelToggle = document.getElementById('darkTogglePanell');
@@ -228,7 +344,7 @@
             });
         }
 
-        // Update stats after render
+        // Update stats and render mapper after load
         function updateStats() {
             const menu = getDefaultMenu();
             if (!menu.length) return;
@@ -237,6 +353,9 @@
             if (el('statItems')) el('statItems').textContent = menu.length;
             if (el('statMin')) el('statMin').textContent = '₹' + Math.min(...prices);
             if (el('statMax')) el('statMax').textContent = '₹' + Math.max(...prices);
+
+            // Render mapper
+            renderImageMapper();
         }
         document.addEventListener('DOMContentLoaded', () => setTimeout(updateStats, 300));
     </script>
