@@ -393,6 +393,24 @@
     </div>
   </section>
 
+  <!-- ── Shop Gallery Lightbox ── -->
+  <div class="lightbox" id="shopLightbox">
+    <div class="lightbox-content-photo">
+      <div class="lightbox-close" onclick="closeShopLightbox()">✕</div>
+      <div class="lightbox-img-container">
+        <img src="" alt="" class="lightbox-img" id="shopLightboxImg">
+      </div>
+      <div class="lightbox-info">
+        <span class="lightbox-label" id="shopLightboxLabel"></span>
+        <span class="lightbox-counter" id="shopLightboxCounter"></span>
+      </div>
+      <div class="lightbox-nav-row">
+        <button class="btn lightbox-nav-btn" onclick="shopLightboxNav(-1)">← Prev</button>
+        <button class="btn lightbox-nav-btn" onclick="shopLightboxNav(1)">Next →</button>
+      </div>
+    </div>
+  </div>
+
   <!-- ── WhatsApp Floating Button ── -->
   <a href="https://wa.me/919016996990?text=Hi%2C+I+want+to+order+from+Satyanarayan+Ice+Cream" class="whatsapp-float"
     target="_blank" title="Order on WhatsApp" id="waFloat">
@@ -459,6 +477,69 @@
   <script src="js/main.js"></script>
   <script src="js/menu.js"></script>
   <script src="js/testimonials.js"></script>
+
+  <!-- Shop Gallery Lightbox Script -->
+  <script>
+    (function () {
+      const galleryItems = document.querySelectorAll('.shop-gallery-item');
+      const shopImages = [];
+      let currentShopLB = 0;
+
+      galleryItems.forEach((item, i) => {
+        const img = item.querySelector('.shop-gallery-img');
+        const label = item.querySelector('.shop-gallery-label');
+        if (img) {
+          shopImages.push({
+            src: img.src,
+            alt: img.alt,
+            label: label ? label.textContent : img.alt
+          });
+          item.addEventListener('click', () => openShopLightbox(i));
+        }
+      });
+
+      window.openShopLightbox = function (index) {
+        currentShopLB = index;
+        const lb = document.getElementById('shopLightbox');
+        const img = document.getElementById('shopLightboxImg');
+        const label = document.getElementById('shopLightboxLabel');
+        const counter = document.getElementById('shopLightboxCounter');
+        const item = shopImages[index];
+        if (!item) return;
+        img.src = item.src;
+        img.alt = item.alt;
+        label.textContent = item.label;
+        counter.textContent = (index + 1) + ' / ' + shopImages.length;
+        lb.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      };
+
+      window.closeShopLightbox = function () {
+        const lb = document.getElementById('shopLightbox');
+        lb.classList.remove('open');
+        document.body.style.overflow = '';
+      };
+
+      window.shopLightboxNav = function (dir) {
+        const newIndex = (currentShopLB + dir + shopImages.length) % shopImages.length;
+        openShopLightbox(newIndex);
+      };
+
+      // Close on backdrop click
+      document.getElementById('shopLightbox').addEventListener('click', function (e) {
+        if (e.target === this) closeShopLightbox();
+      });
+
+      // Keyboard navigation
+      document.addEventListener('keydown', function (e) {
+        const lb = document.getElementById('shopLightbox');
+        if (!lb.classList.contains('open')) return;
+        if (e.key === 'Escape') closeShopLightbox();
+        if (e.key === 'ArrowRight') shopLightboxNav(1);
+        if (e.key === 'ArrowLeft') shopLightboxNav(-1);
+      });
+    })();
+  </script>
 </body>
 
 </html>
